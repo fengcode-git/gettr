@@ -5,16 +5,25 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "createdb": "node ./sql/init.js",
+    "cleardb": "node ./sql/drop.js",
     "lint": "next lint"
   },
   "dependencies": {
+    "dayjs": "^1.10.7",
+    "md5": "^2.3.0",
     "next": "12.0.3",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "sqlite3": "^5.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/md5": "^2.3.1",
     "@types/node": "16.11.7",
     "@types/react": "17.0.34",
+    "@types/sqlite3": "^3.1.7",
+    "@types/uuid": "^8.3.1",
     "eslint": "7",
     "eslint-config-next": "12.0.3",
     "typescript": "4.4.4"
