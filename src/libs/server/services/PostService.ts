@@ -1,7 +1,7 @@
-import Post from "../entity/Post"
-import PostView from "../entity/PostView"
-import PostType from "../enums/PostType"
-import UnitOfWork from "./UnitOfWork"
+import PostView from "@/libs/common/entity/PostView";
+import PostType from "@/libs/common/enums/PostType";
+import UnitOfWork from "@/libs/server/services/UnitOfWork";
+
 
 export default class PostService {
     static async add(content: string, personId: string, pType: PostType = PostType.post, refId: string = '', images: string = ''): Promise<PostView> {

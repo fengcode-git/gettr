@@ -1,6 +1,6 @@
-import DbHelper from "../db/DbHelper";
-import PersonRepository from "./PersonRepository";
-import PostRepository from "./PostRepository";
+import DbHelper from "@/libs/server/db/DbHelper"
+import PersonRepository from "@/libs/server/services/PersonRepository"
+import PostRepository from "@/libs/server/services/PostRepository"
 
 export default class UnitOfWork {
     readonly db: DbHelper

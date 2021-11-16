@@ -1,4 +1,4 @@
-import RoleType from "../enums/RoleType"
+import RoleType from "@/libs/common/enums/RoleType"
 
 class Person {
     id: string = ''

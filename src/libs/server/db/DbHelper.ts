@@ -1,5 +1,5 @@
+import ConnectFactory from '@/libs/server/db/ConnectFactory';
 import sqlite3 from 'sqlite3'
-import ConnectFactory from './ConnectFactory';
 
 class DbHelper {
     private _db: sqlite3.Database;
@@ -41,6 +41,7 @@ class DbHelper {
     async rollback() {
         await this._exec('ROLLBACK')
     }
+    /** 执行SQL语句 */
     async execute(sql: string, args: Array<any> = []): Promise<number> {
         return new Promise((resolve, reject) => {
             this._db.run(sql, args, function (err) {
@@ -52,6 +53,7 @@ class DbHelper {
             })
         })
     }
+    /** 查询数据 */
     async query<T>(sql: string, args: Array<any> = []): Promise<Array<T>> {
         return new Promise((resolve, reject) => {
             this._db.all(sql, function (err, rows) {
@@ -63,6 +65,7 @@ class DbHelper {
             })
         })
     }
+    /** 获取单条记录 */
     async single<T>(sql: string, args: Array<any> = []): Promise<T | null> {
         return new Promise((resolve, reject) => {
             this._db.get(sql, args, function (err, row) {
@@ -78,6 +81,7 @@ class DbHelper {
             })
         })
     }
+    /** 查询标量值 */
     async scalar(sql: string, args: Array<any> = []): Promise<number> {
         return new Promise((resolve, reject) => {
             this._db.get(sql, args, function (err, row) {

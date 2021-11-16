@@ -1,6 +1,7 @@
+import ITokenUser from '@/libs/common/interfaces/ITokenUser'
+import { APP_KEY } from '@/libs/server/utils/config'
 import jwt from 'jsonwebtoken'
-import config from './config'
-import ITokenUser from './ITokenUser'
+
 
 class JwtHelper {
     /** 获取签名后的token */
@@ -8,14 +9,14 @@ class JwtHelper {
         let token = jwt.sign({
             id: id,
             name: accountName
-        }, config.app.key)
+        }, APP_KEY)
         return token
     }
 
     /** 验证token，并返回user */
     static verify(token: string): Promise<ITokenUser> {
         return new Promise((resolve, reject) => {
-            jwt.verify(token, config.app.key, (err, user) => {
+            jwt.verify(token, APP_KEY, (err, user) => {
                 if (err) {
                     reject(err)
                 } else {

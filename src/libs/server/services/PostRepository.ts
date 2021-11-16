@@ -1,12 +1,12 @@
-import Post from "../entity/Post";
-import PostView from "../entity/PostView";
-import PostType from "../enums/PostType";
-import StatusType from "../enums/StatusType";
-import { DEFAULT_PAGE_SIZE } from "../utils/global";
-import PagingHelper from "../utils/PagingHelper";
-import PagingResult from "../utils/PagingResult";
-import StringHelper from "../utils/StringHelper";
-import BaseRepository from "./BaseRepository";
+import Post from "@/libs/common/entity/Post"
+import PostView from "@/libs/common/entity/PostView"
+import PostType from "@/libs/common/enums/PostType"
+import StatusType from "@/libs/common/enums/StatusType"
+import BaseRepository from "@/libs/server/services/BaseRepository"
+import { DEFAULT_PAGE_SIZE } from "@/libs/server/utils/global"
+import PagingHelper from "@/libs/server/utils/PagingHelper"
+import PagingResult from "@/libs/common/utils/PagingResult"
+import StringHelper from "@/libs/server/utils/StringHelper"
 
 export default class PostRepository extends BaseRepository {
     async getById(id: string) {
@@ -55,8 +55,8 @@ export default class PostRepository extends BaseRepository {
                 ) and type = ?  and status = ?
                 order by create_time desc
                 limit ? offset ?`
-        let data = await this.conn.query(sql, [personId, PostType.post, StatusType.visible, pageSize, skipNum])
-        return new PagingResult(currentPage, pageSize, count, data)
+        let data = await this.conn.query<PostView>(sql, [personId, PostType.post, StatusType.visible, pageSize, skipNum])
+        return new PagingResult<PostView>(currentPage, pageSize, count, data)
     }
     async getPostsWithPerson(currentPage: number, personId: string) {
         let pageSize = DEFAULT_PAGE_SIZE

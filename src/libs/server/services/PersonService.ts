@@ -1,9 +1,8 @@
-import StringHelper from "../utils/StringHelper";
-import Person from "../entity/Person";
-import jwt from "jsonwebtoken"
-import config from "../utils/config";
-import UnitOfWork from "./UnitOfWork";
-import JwtHelper from "../utils/JwtHelper";
+import Person from "@/libs/common/entity/Person"
+import ITokenResponse from "@/libs/common/interfaces/ITokenResponse"
+import UnitOfWork from "@/libs/server/services/UnitOfWork"
+import JwtHelper from "@/libs/server/utils/JwtHelper"
+import StringHelper from "@/libs/server/utils/StringHelper"
 
 
 export const PWD_REG = /^\w+$/
@@ -24,7 +23,7 @@ export default class PersonService {
             await work.db.close()
         }
     }
-    static async login(name: string, password: string) {
+    static async login(name: string, password: string): Promise<ITokenResponse> {
         name = name.trim()
         password = password.trim()
         if (!ACCOUNT_REG.test(name)) {
@@ -54,7 +53,7 @@ export default class PersonService {
             await work.db.close()
         }
     }
-    static async register(name: string, password: string) {
+    static async register(name: string, password: string): Promise<Person> {
         name = name.trim()
         password = password.trim()
         if (!ACCOUNT_REG.test(name)) {
@@ -77,7 +76,7 @@ export default class PersonService {
             await work.db.close()
         }
     }
-    static async follow(personId: string, followId: string) {
+    static async follow(personId: string, followId: string): Promise<void> {
         if (StringHelper.isEmpty(personId)) {
             throw new Error('用户ID不能为空')
         }
@@ -91,7 +90,7 @@ export default class PersonService {
         }
         work.db.close()
     }
-    static async removeFollow(personId: string, followId: string) {
+    static async removeFollow(personId: string, followId: string): Promise<void> {
         if (StringHelper.isEmpty(personId)) {
             throw new Error('用户ID不能为空')
         }

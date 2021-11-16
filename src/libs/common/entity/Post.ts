@@ -1,11 +1,12 @@
-import PostStatus from "../enums/StatusType"
-import PostType from "../enums/PostType"
+import PostType from "@/libs/common/enums/PostType"
+import StatusType from "@/libs/common/enums/StatusType"
+
 
 class Post{
     id: string = ''
     ref_id: string = ''
     person_id: string = ''
-    status: PostStatus = PostStatus.visible
+    status: StatusType = StatusType.visible
     like_num: number = 0
     forward_num: number = 0
     content: string = ''

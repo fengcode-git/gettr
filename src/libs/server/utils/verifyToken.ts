@@ -1,7 +1,7 @@
 // 参考文档：https://hoangvvo.com/blog/nextjs-middleware
 
-import IExtendedRequest from "./IExtendedRequest";
-import ITokenUser from "./ITokenUser";
+import IExtendedApiRequest from "../interfaces/IExtendedApiRequest";
+import ITokenUser from "../../common/interfaces/ITokenUser";
 import JwtHelper from "./JwtHelper";
 
 type Result = {
@@ -10,7 +10,7 @@ type Result = {
     user?: ITokenUser
 }
 
-const verifyToken = async (req: IExtendedRequest): Promise<Result> => {
+const verifyToken = async (req: IExtendedApiRequest): Promise<Result> => {
     const bearerHeader = req.headers.authorization
     const headers = {
         'Content-Type': 'application/json'

@@ -1,11 +1,12 @@
+import { JsonResult } from '@/libs/common/interfaces/IJsonResult'
+import PersonService from '@/libs/server/services/PersonService'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import nc from 'next-connect'
-import PersonService from '../../../libs/services/PersonService'
-import { createJsonResult } from '../../../libs/utils/jsonResult'
+
 
 export default nc<NextApiRequest, NextApiResponse>({
   onError(err, req, res) {
-    let result = createJsonResult(false, err.message, '')
+    let result = JsonResult.create(false, err.message, '')
     res.status(500).json(result)
   }
 }).post(async (req, res) => {
