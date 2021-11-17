@@ -1,5 +1,4 @@
 import Person from "@/libs/common/entity/Person"
-import ITokenResponse from "@/libs/common/interfaces/ITokenResponse"
 import UnitOfWork from "@/libs/server/services/UnitOfWork"
 import JwtHelper from "@/libs/server/utils/JwtHelper"
 import StringHelper from "@/libs/server/utils/StringHelper"
@@ -23,7 +22,9 @@ export default class PersonService {
             await work.db.close()
         }
     }
-    static async login(name: string, password: string): Promise<ITokenResponse> {
+
+    /** 登录成功后，返回签名后的token */
+    static async login(name: string, password: string): Promise<string> {
         name = name.trim()
         password = password.trim()
         if (!ACCOUNT_REG.test(name)) {
@@ -40,12 +41,7 @@ export default class PersonService {
             } else if (p.password != StringHelper.md5(password)) {
                 throw new Error('账号或密码错误')
             } else {
-                let token = JwtHelper.sign(p.id, p.account_name)
-                return {
-                    username: name,
-                    token: token,
-                    avatar: p.avatar
-                }
+                return JwtHelper.sign(p.id, p.account_name)
             }
         } catch (error) {
             throw error

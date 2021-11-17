@@ -9,20 +9,24 @@ class JwtHelper {
         let token = jwt.sign({
             id: id,
             name: accountName
-        }, APP_KEY)
+        }, APP_KEY, { expiresIn: 60 * 60 })
         return token
     }
 
     /** 验证token，并返回user */
-    static verify(token: string): Promise<ITokenUser> {
+    static verify(token: string): Promise<ITokenUser | null> {
         return new Promise((resolve, reject) => {
-            jwt.verify(token, APP_KEY, (err, user) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve(user as ITokenUser)
-                }
-            })
+            if (token) {
+                jwt.verify(token, APP_KEY, (err, user) => {
+                    if (err) {
+                        resolve(null)
+                    } else {
+                        resolve(user as ITokenUser)
+                    }
+                })
+            } else {
+                resolve(null)
+            }
         })
     }
 }
