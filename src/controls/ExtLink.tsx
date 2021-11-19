@@ -1,14 +1,17 @@
-import NextLink from 'next/link'
-import { Grid, Link as MuiLink, Box } from '@mui/material'
+import { Link as MuiLink } from '@mui/material'
 import React from 'react'
+import { useNavigate } from 'react-router'
 
 const ExtLink = ({ href, children }: { href: string, children: React.ReactNode }) => {
+    const nav = useNavigate()
+    const handleClick = (ev:React.MouseEvent<HTMLElement>)=>{
+        ev.preventDefault()
+        nav(href)
+    }
     return (
-        <NextLink href={href} passHref>
-            <MuiLink>
-                {children}
-            </MuiLink>
-        </NextLink>
+        <MuiLink onClick={handleClick} href="#">
+            {children}
+        </MuiLink>
     )
 }
 export default ExtLink

@@ -9,11 +9,9 @@ import ExtLink from '@/controls/ExtLink'
 import ExtInput from '@/controls/ExtInput'
 import ExtButton from '@/controls/ExtButton'
 import { useStore } from '@/store/StoreContext'
-import Router from 'next/router'
-import { Alert, Typography } from '@mui/material'
-import Collapse from '@mui/material/Collapse'
-import CloseIcon from '@mui/icons-material/Close'
-import IconButton from '@mui/material/IconButton'
+import { Typography } from '@mui/material'
+import { useNavigate } from 'react-router';
+import useToast from '@/components/toast/useToast';
 
 const validationSchema = yup.object({
     username: yup.string().matches(/^[a-zA-Z]+/, '账号必须以字母开头').matches(/^[a-zA-Z]\w{2,9}$/, "账号为3~10位的字符（数字、字母、下划线）").required('请输入账号'),
@@ -22,9 +20,9 @@ const validationSchema = yup.object({
 
 const LoginForm = () => {
     const [loading, setLoading] = React.useState(false)
-    const [open, setOpen] = React.useState(false)
-    const [error, setError] = React.useState('')
     const { dispatch } = useStore()
+    const {showError} = useToast()
+    const nav = useNavigate()
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -36,10 +34,9 @@ const LoginForm = () => {
                 setLoading(true)
                 let result = await login(values.username, values.password)
                 dispatch({ type: 'login', id: result.id, nickname: result.nickname })
-                Router.replace("/")
+                nav('/',{replace: true})
             } catch (error: any) {
-                setError(error.message)
-                setOpen(true)
+                showError(error.message)
             } finally {
                 setLoading(false)
             }
@@ -52,12 +49,6 @@ const LoginForm = () => {
                 <Grid item xs={12}>
                     <ExtInput name="username" label="账号名称" formik={formik} autoFocus={true} />
                     <ExtInput name="password" label="登录密码" formik={formik} type="password" />
-                    <Collapse in={open}>
-                        <Alert variant="outlined" severity="warning" sx={{ marginTop: 2 }}
-                            action={<IconButton size="small" onClick={() => { setOpen(false) }}>
-                                <CloseIcon fontSize="inherit" />
-                            </IconButton>} >{error}</Alert>
-                    </Collapse>
                 </Grid>
                 <Grid item xs={12}>
                     <Box marginTop={10}>

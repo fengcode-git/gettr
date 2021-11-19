@@ -1,10 +1,12 @@
 import type { AppProps } from 'next/app'
 import React from 'react'
-import theme from '@/theme';
 import Head from 'next/head';
-import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import StoreProvider from '@/store/StoreProvider';
+import dynamic from 'next/dynamic';
+
+const DynamicComponentWithNoSSR = dynamic(
+  () => import('../components/Main'),
+  { ssr: false }
+)
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -16,12 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
         />
       </Head>
-      <CssBaseline></CssBaseline>
-      <ThemeProvider theme={theme}>
-        <StoreProvider>
-          <Component {...pageProps} />
-        </StoreProvider>
-      </ThemeProvider>
+      <DynamicComponentWithNoSSR></DynamicComponentWithNoSSR>
     </React.Fragment>
   )
 }
