@@ -1,18 +1,19 @@
 import React from 'react'
-import theme from '@/theme';
 import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
+import { createTheme, CssBaseline } from '@mui/material';
 import StoreProvider from '@/store/StoreProvider';
 import { BrowserRouter } from 'react-router-dom'
 import ToastProvider from '@/components/toast/ToastProvider';
 import PageContent from '@/components/layout/PageContent';
+
+const themeLight = createTheme()
 
 const Main = () => {
     return (
         <React.Fragment>
             <CssBaseline></CssBaseline>
             <BrowserRouter>
-                <ThemeProvider theme={theme}>
+                <ThemeProvider theme={themeLight}>
                     <StoreProvider>
                         <ToastProvider>
                             <PageContent></PageContent>

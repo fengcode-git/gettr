@@ -7,9 +7,7 @@ const Home = () => {
   const { state } = useStore()
   return (
     <>
-      <main>
-        {state.visit ? <HomeView></HomeView> : <Welcome></Welcome>}
-      </main>
+       {state.visit ? <HomeView></HomeView> : <Welcome></Welcome>}
     </>
   )
 }
