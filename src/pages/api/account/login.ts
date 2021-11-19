@@ -5,7 +5,7 @@ import apiHandler from '@/libs/server/middlewares/apiHandler'
 
 export default apiHandler.post(async (req, res) => {
   let { username, password } = req.body
-  let token = await PersonService.login(username, password)
-  CookieHelper.SetTokenCookie(res, token)
-  res.status(200).json(JsonResult.create(true, '', token))
+  let result = await PersonService.login(username, password)
+  CookieHelper.SetTokenCookie(res, result.token)
+  res.status(200).json(JsonResult.create(true, '', { id: result.id, nickname: result.nickname }))
 })

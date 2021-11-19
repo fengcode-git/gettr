@@ -24,7 +24,7 @@ export default class PersonService {
     }
 
     /** 登录成功后，返回签名后的token */
-    static async login(name: string, password: string): Promise<string> {
+    static async login(name: string, password: string): Promise<{ id: string; token: string; nickname: string; }> {
         name = name.trim()
         password = password.trim()
         if (!ACCOUNT_REG.test(name)) {
@@ -41,7 +41,8 @@ export default class PersonService {
             } else if (p.password != StringHelper.md5(password)) {
                 throw new Error('账号或密码错误')
             } else {
-                return JwtHelper.sign(p.id, p.account_name)
+                let token = JwtHelper.sign(p.id, p.account_name)
+                return { id: p.id, token: token, nickname: p.nickname }
             }
         } catch (error) {
             throw error

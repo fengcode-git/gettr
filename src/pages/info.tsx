@@ -7,7 +7,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     let token = CookieHelper.getTokenCookieFromPage(context)
     try {
         let user = await JwtHelper.verify(token)
-        console.log(user)
         return {
             props: {}
         }
