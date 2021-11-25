@@ -1,7 +1,7 @@
 import Person from "@/libs/common/entity/Person"
 import RoleType from "@/libs/common/enums/RoleType"
 import BaseRepository from "@/libs/server/services/BaseRepository"
-import StringHelper from "@/libs/server/utils/StringHelper"
+import StringHelper from "@/libs/common/utils/StringHelper"
 
 export default class PersonRepository extends BaseRepository {
     async insert(accountName: string, password: string): Promise<Person> {

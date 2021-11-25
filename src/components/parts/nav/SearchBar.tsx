@@ -1,4 +1,4 @@
-import {styled } from "@mui/material"
+import { styled } from "@mui/material"
 import SearchIcon from '@mui/icons-material/Search'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import React from 'react'
@@ -17,7 +17,7 @@ const Form = styled('form')({
   alignItems: "center",
   borderRadius: "42px",
   backgroundColor: "#eeeff3",
-  padding: '0 10px 0 40px',
+  padding: '0 40px 0 40px',
   "&:focus-within": {
     border: '1px solid #232255',
     backgroundColor: "white",

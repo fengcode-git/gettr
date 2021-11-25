@@ -7,9 +7,9 @@ import React from 'react'
 const Navbar = () => {
     return (
         <React.Fragment>
-            <Box borderBottom="1px solid rgb(232, 233, 239)">
+            <Box borderBottom="1px solid rgb(232, 233, 239)" sx={{backgroundColor:"white"}}>
                 <Container maxWidth="lg">
-                    <AppBar position="sticky" elevation={0} sx={{ backgroundColor: "white" }}>
+                    <AppBar position="sticky" elevation={0} sx={{backgroundColor:"white"}}>
                         <Toolbar>
                             <Logo></Logo>
                             <Box display="flex" justifyContent="space-between" alignItems="center" flexGrow={1}>

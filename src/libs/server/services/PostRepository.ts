@@ -6,7 +6,7 @@ import BaseRepository from "@/libs/server/services/BaseRepository"
 import { DEFAULT_PAGE_SIZE } from "@/libs/server/utils/global"
 import PagingHelper from "@/libs/server/utils/PagingHelper"
 import PagingResult from "@/libs/common/utils/PagingResult"
-import StringHelper from "@/libs/server/utils/StringHelper"
+import StringHelper from "@/libs/common/utils/StringHelper"
 
 export default class PostRepository extends BaseRepository {
     async getById(id: string) {

@@ -1,7 +1,7 @@
 import Person from "@/libs/common/entity/Person"
 import UnitOfWork from "@/libs/server/services/UnitOfWork"
 import JwtHelper from "@/libs/server/utils/JwtHelper"
-import StringHelper from "@/libs/server/utils/StringHelper"
+import StringHelper from "@/libs/common/utils/StringHelper"
 
 
 export const PWD_REG = /^\w+$/

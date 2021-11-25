@@ -6,13 +6,21 @@ export default class StringHelper {
     static md5(str: string) {
         return md5(str)
     }
-    static isEmpty(str: string){
+    static isEmpty(str: string) {
         return str == null || str == '' || str.trim() == ''
     }
     static generateUUID() {
         return v4()
     }
-    static getNowString(){
+    static getNowString() {
         return dayjs().format('YYYY-MM-DD HH:mm:ss')
+    }
+    static isUrl(text: string) {
+        try {
+            let url = new URL(text)
+            return url.protocol === "http:" || url.protocol === "https:"
+        } catch (error) {
+            return false
+        }
     }
 }

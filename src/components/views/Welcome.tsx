@@ -1,9 +1,9 @@
-import { Box, Button, Container, Grid, styled, Typography } from '@mui/material'
+import { Box, Container, styled, Typography } from '@mui/material'
 import React from 'react'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Paths from '@/libs/client/utils/Paths';
 import { useStore } from '@/store/StoreContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Image = styled("img")({
     maxWidth: '100px'
@@ -20,10 +20,6 @@ const LinkButton = styled('a')({
     fontsize: "16px",
     marginTop: "20px"
 })
-
-const RouteLink = ({ to }: { to: string }) => {
-    return <LinkButton></LinkButton>
-}
 
 const Welcome = () => {
     const { dispatch } = useStore()
