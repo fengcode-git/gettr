@@ -1,9 +1,9 @@
-import DocSchema from "@/components/parts/editor/DocSchema";
+import DocSchema, { docSchema } from "@/components/parts/editor/DocSchema";
 import { EditorContext } from "@/components/parts/editor/EditorContext";
-import linkRule from "@/components/parts/editor/plugins/linkRule";
+import autoLinkPlugin from "@/components/parts/editor/plugins/autoLinkPlugin";
+import linkPlugin from "@/components/parts/editor/plugins/linkPlugin";
 import placeholderPlugin from "@/components/parts/editor/plugins/placeholderPlugin";
 import { baseKeymap } from "prosemirror-commands";
-import { inputRules } from "prosemirror-inputrules";
 import { keymap } from "prosemirror-keymap";
 import { EditorState, Plugin } from "prosemirror-state";
 import React, { useState } from "react"
@@ -14,14 +14,14 @@ interface Props {
 }
 
 const EditorProvider = (props: Props) => {
-    let schema = new DocSchema()
+    const [isWorking, setWorking] = useState(false)
     let plugins: Plugin[] = [
-        inputRules({rules: [linkRule(schema)]}),
+        // autoLinkPlugin(),
+        linkPlugin(),
         keymap(baseKeymap),
         placeholderPlugin('有什么新鲜事吗？'),
     ]
-    const [value, setValue] = useProseMirror({ schema, plugins })
-    const [isWorking, setWorking] = useState(false)
+    const [value, setValue] = useProseMirror({ schema: docSchema, plugins })
     return (
         <EditorContext.Provider value={{ value, setValue, isWorking, setWorking }}>
             {props.children}

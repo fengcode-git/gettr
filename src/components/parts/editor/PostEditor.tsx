@@ -5,7 +5,6 @@ import EditorProvider from '@/components/parts/editor/EditorProvider'
 
 
 interface Props {
-
 }
 
 const PostEditor = (props: Props) => {

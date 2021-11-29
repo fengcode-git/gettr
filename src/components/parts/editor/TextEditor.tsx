@@ -33,8 +33,13 @@ const TextEditor = () => {
     const handleChange = (state: EditorState<any>) => {
         context.setValue(state)
     }
+
+    React.useEffect(()=>{
+        console.log('isWorking:',context.isWorking)
+    },[context.isWorking])
+
     return (
-        <StyledProseMirror state={context.value} onChange={handleChange} attributes={{spellcheck:'false'}}></StyledProseMirror>
+        <StyledProseMirror state={context.value} onChange={handleChange} attributes={{ spellcheck: 'false' }}></StyledProseMirror>
     )
 }
 
