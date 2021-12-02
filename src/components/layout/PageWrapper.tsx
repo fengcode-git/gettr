@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@mui/material'
 const PageWrapper = ({ children }: { children: React.ReactNode }) => {
     return (
-       <Box sx={{backgroundColor: '#F7F8F9'}} display="flex" flexDirection="column" width="100vw" height="100vh" overflow="hidden">
+       <Box sx={{backgroundColor: '#F7F8F9'}} display="flex" flexDirection="column" width="100vw" minHeight="100vh">
            {children}
        </Box>
     )

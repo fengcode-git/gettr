@@ -33,12 +33,16 @@ export default class AjaxHelper {
             }
         }
     }
-    static async postFormData<T>(url: string, params: FormData): Promise<IJsonResult<T>> {
+    static async postFormData<T>(url: string, params: FormData, timeout?: number): Promise<IJsonResult<T>> {
         try {
             let response = await axios.post(url, params, {
-                timeout: TIMEOUT
+                timeout: timeout ? timeout : TIMEOUT,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             })
             return response.data as JsonResult<T>
+
         } catch (error: any) {
             if (error.response) {
                 throw new Error(error.response.data.message)

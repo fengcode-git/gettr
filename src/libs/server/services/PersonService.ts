@@ -2,6 +2,7 @@ import Person from "@/libs/common/entity/Person"
 import UnitOfWork from "@/libs/server/services/UnitOfWork"
 import JwtHelper from "@/libs/server/utils/JwtHelper"
 import StringHelper from "@/libs/common/utils/StringHelper"
+import IPersionInfo from "@/libs/common/interfaces/IPersionInfo"
 
 
 export const PWD_REG = /^\w+$/
@@ -96,5 +97,9 @@ export default class PersonService {
         }
         let work = await UnitOfWork.create()
         await work.person.removeFollow(personId, followId)
+    }
+    static async getAll(): Promise<IPersionInfo[]> {
+        let work = await UnitOfWork.create()
+        return work.person.getAll()
     }
 }

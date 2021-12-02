@@ -3,9 +3,14 @@ import { EditorState, Plugin, TextSelection, Transaction } from 'prosemirror-sta
 import { Fragment, Node, ResolvedPos, Slice } from 'prosemirror-model'
 import EditorHelper from '@/components/parts/editor/EditorHelper'
 
-const REG = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{1,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig
+const REG = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9:%._\+~=]{1,256}\.[a-z]{1,6}\b([-a-zA-Z0-9:%_\+.~?&//=]*)/ig
 
-const handleLink = (view: EditorView<any>, node: Node, tr: Transaction<any>, $p: ResolvedPos<any>) => {
+
+const doLink = ()=>{
+    
+}
+
+const handleLink = (view: EditorView<any>, node: Node, tr: Transaction<any>, $p: ResolvedPos<any>, setLinks: React.Dispatch<React.SetStateAction<Array<string>>>) => {
     let state = view.state
     let markType = state.schema.marks.link
     let nodeText = node.textContent
@@ -27,22 +32,20 @@ const handleLink = (view: EditorView<any>, node: Node, tr: Transaction<any>, $p:
     return tr
 }
 
-const autoLinkPlugin = () => {
+const autoLinkPlugin = (setLinks: React.Dispatch<React.SetStateAction<Array<string>>>) => {
     return new Plugin({
         props: {
             handleDOMEvents: {
                 keyup: (view: EditorView<any>, event: KeyboardEvent) => {
                     let state = view.state
-                    console.log(state.selection)
-                    console.log(EditorHelper.getCurrentNode(state))
                     let select = view.state.selection
                     if (select instanceof TextSelection && select.$cursor) {
                         let rangs = select.ranges
                         let tr = state.tr
                         for (let index = 0; index < rangs.length; index++) {
                             const rang = rangs[index]
-                            tr = handleLink(view, rang.$from.parent, tr, rang.$from)
-                            tr = handleLink(view, rang.$to.parent, tr, rang.$to)
+                            tr = handleLink(view, rang.$from.parent, tr, rang.$from, setLinks)
+                            tr = handleLink(view, rang.$to.parent, tr, rang.$to, setLinks)
                         }
                         view.dispatch(tr)
                     }

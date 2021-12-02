@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
-import { ProseMirror } from 'use-prosemirror'
+import { Handle, ProseMirror } from 'use-prosemirror'
 import { EditorContext } from '@/components/parts/editor/EditorContext'
 import { EditorState } from 'prosemirror-state'
 import { styled } from '@mui/system'
+import { getAllPerson } from '@/libs/client/api/person.api'
 
 const StyledProseMirror = styled(ProseMirror)`
     background-color: #F7F8F9;
@@ -30,16 +31,28 @@ const StyledProseMirror = styled(ProseMirror)`
 
 const TextEditor = () => {
     const context = useContext(EditorContext)
+    const ref = React.useRef<Handle>(null)
     const handleChange = (state: EditorState<any>) => {
         context.setValue(state)
     }
 
-    React.useEffect(()=>{
-        console.log('isWorking:',context.isWorking)
-    },[context.isWorking])
+    React.useEffect(() => {
+        if (context.isWorking) {
+            getAllPerson().then(result => {
+                console.log(result)
+            })
+        }
+    }, [context.isWorking])
+
+    React.useEffect(() => {
+        let tr = context.value.tr.insertText(context.emoji)
+        ref.current?.view?.dispatch(tr)
+    }, [context.emoji])
 
     return (
-        <StyledProseMirror state={context.value} onChange={handleChange} attributes={{ spellcheck: 'false' }}></StyledProseMirror>
+        <React.Fragment>
+            <StyledProseMirror ref={ref} state={context.value} onChange={handleChange} attributes={{ spellcheck: 'false' }}></StyledProseMirror>
+        </React.Fragment>
     )
 }
 

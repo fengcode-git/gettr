@@ -38,3 +38,5 @@ yarn-error.log*
 
 database.db
 .env
+
+/public/uploads

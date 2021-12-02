@@ -5,7 +5,7 @@ import { Node, ResolvedPos, Slice } from 'prosemirror-model'
 const mentionPlugin = (setWorking: React.Dispatch<React.SetStateAction<boolean>>)=>{
     return new Plugin({
         props: {
-            handleKeyPress: (view: EditorView<any>, event: KeyboardEvent) => {                
+            handleKeyPress: (view: EditorView<any>, event: KeyboardEvent) => {   
                 setWorking(true)
                 return false
             }

@@ -2,6 +2,7 @@ import Person from "@/libs/common/entity/Person"
 import RoleType from "@/libs/common/enums/RoleType"
 import BaseRepository from "@/libs/server/services/BaseRepository"
 import StringHelper from "@/libs/common/utils/StringHelper"
+import IPersionInfo from "@/libs/common/interfaces/IPersionInfo"
 
 export default class PersonRepository extends BaseRepository {
     async insert(accountName: string, password: string): Promise<Person> {
@@ -51,5 +52,9 @@ export default class PersonRepository extends BaseRepository {
     async removeFollow(personId: string, followerId: string): Promise<void> {
         const sql = 'delete from follow where person_id=? and follower_id=? limit 1;'
         await this.conn.execute(sql, [personId, followerId])
+    }
+    async getAll(): Promise<IPersionInfo[]> {
+        const sql = 'select id, account_name, nickname,avatar from person;'
+        return await this.conn.query<IPersionInfo>(sql)
     }
 }
