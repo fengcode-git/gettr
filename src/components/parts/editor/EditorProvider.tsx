@@ -19,9 +19,9 @@ const EditorProvider = (props: Props) => {
     const [emoji, setEmoji] = useState('')
     const [images, setImages] = useState<Array<string>>([])
     const [links, setLinks] = useState<Array<string>>([])
-    const addLink = (link: string) => {
+    // const addLink = (link: string) => {
         
-    }
+    // }
     let plugins: Plugin[] = [
         autoLinkPlugin(setLinks),
         keymap(baseKeymap),
