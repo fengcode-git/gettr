@@ -1,8 +1,8 @@
 ## 技术栈
 
-后端：Next.js、sqlite
+后端：Next.js、Node.js、sqlite
 
-前端：react、MUI 5
+前端：react、MUI 5、prosemirror
 
 ## 运行项目
 

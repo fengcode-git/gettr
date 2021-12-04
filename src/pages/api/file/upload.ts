@@ -1,4 +1,3 @@
-import nextConnect from 'next-connect';
 import { JsonResult } from '@/libs/common/interfaces/IJsonResult'
 import apiHandler from '@/libs/server/middlewares/apiHandler'
 import formidable from "formidable"

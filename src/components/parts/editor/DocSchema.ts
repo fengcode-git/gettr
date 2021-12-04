@@ -47,16 +47,16 @@ class DocSchema extends Schema {
                         }
                     ]
                 },
-                text: {
-                    group: "inline"
-                }
-            },
-            marks: {
                 link: {
+                    group: "inline",
+                    content: "inline*",
+                    inline: true,
+                    draggable: false,
+                    selectable: true,
+                    atom: true,
                     attrs: {
                         href: {}
                     },
-                    inclusive: false,
                     parseDOM: [{
                         tag: "a[href]", getAttrs(dom) {
                             let e = dom as HTMLElement
@@ -67,6 +67,9 @@ class DocSchema extends Schema {
                         let { href } = node.attrs;
                         return ["a", { href }, 0]
                     }
+                },
+                text: {
+                    group: "inline"
                 }
             }
         })

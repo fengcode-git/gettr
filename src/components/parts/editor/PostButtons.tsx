@@ -56,7 +56,6 @@ const PostButtons = () => {
         }
     }
     React.useEffect(()=>{
-        console.log(context.images)
         if(context.images.length>=4){
             setDisable(true)
         }else{
