@@ -8,4 +8,6 @@ CREATE TABLE [post](
   [content] TEXT, 
   [type] INT, 
   [create_time] DATETIME, 
+  open_graph TEXT,
+  video TEXT,
   [images] TEXT);

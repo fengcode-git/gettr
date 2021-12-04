@@ -4,7 +4,7 @@ import InsertPhotoIcon from '@mui/icons-material/InsertPhoto'
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 import { styled } from '@mui/system'
 import 'emoji-mart/css/emoji-mart.css'
-import { BaseEmoji, EmojiData, Picker } from 'emoji-mart'
+import { BaseEmoji, Picker } from 'emoji-mart'
 import { EditorContext } from '@/components/parts/editor/EditorContext'
 import updateFile from '@/libs/client/api/file.api'
 import useToast from '@/components/toast/useToast'
@@ -14,7 +14,6 @@ const StyledPublicButton = styled(Button)`
     color: white !important;
     border-radius: 100px;
     font-size: 16px;
-    margin-left: auto;
     &::hover{
         background-color: #3d3c7c;
         color: white;
@@ -27,9 +26,11 @@ const StyledPublicButton = styled(Button)`
 
 const PostButtons = () => {
     const [emojiBtnRef, setEmojiBtnRef] = React.useState<any>(null);
-    const [disable,setDisable] = React.useState(false)
+    const [disable, setDisable] = React.useState(false)
     const context = useContext(EditorContext)
+    const [textLength, setTextLength] = React.useState(0)
     const { showError } = useToast()
+    const maxLength = 777
     const addEmoji = (emoji: BaseEmoji) => {
         if (emoji.native) {
             context.setEmoji(emoji.native)
@@ -55,13 +56,19 @@ const PostButtons = () => {
             })
         }
     }
-    React.useEffect(()=>{
-        if(context.images.length>=4){
+    React.useEffect(() => {
+        if (context.images.length >= 4) {
             setDisable(true)
-        }else{
+        } else {
             setDisable(false)
         }
-    },[context.images])
+    }, [context.images])
+    React.useEffect(() => {
+        let doc = context.value.doc
+        let text = doc.textBetween(0, doc.nodeSize - 2, '\n')
+        let length = text.length
+        setTextLength(length)
+    }, [context.value])
     return (
         <Box marginTop={2} display="flex" alignItems="center">
             <label htmlFor="icon-button-file">
@@ -72,7 +79,8 @@ const PostButtons = () => {
             <Popover open={open} anchorEl={emojiBtnRef} onClose={handleClose}>
                 <Picker onSelect={addEmoji} />
             </Popover>
-            <StyledPublicButton variant="contained" disableElevation={true} disabled>发帖子</StyledPublicButton>
+            <div style={{ marginLeft: 'auto',marginRight: '10px' }}>{textLength} / {maxLength} </div>
+            <StyledPublicButton variant="contained" disableElevation={true} disabled={textLength >= maxLength}>发帖子</StyledPublicButton>
         </Box>
     )
 }

@@ -24,7 +24,7 @@ class OpenGraphService {
                     })
                 }
             }
-            ogs(option, function (error, result) {        
+            ogs(option, function (error, result) {  
                 if (!result.success) {
                     reject(new Error(result.error))
                 } else {

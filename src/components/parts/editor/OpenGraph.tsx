@@ -31,6 +31,7 @@ const OpenGraph = (props: Props) => {
             getOpenGraphInfo(url).then(value => {
                 setData(value)
             }).catch(err => {
+                console.error(err)
                 setData(null)
             }).finally(() => {
                 setLoading(false)
