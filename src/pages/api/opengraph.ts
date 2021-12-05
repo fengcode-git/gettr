@@ -1,6 +1,4 @@
 import { JsonResult } from '@/libs/common/interfaces/IJsonResult'
-import PersonService from '@/libs/server/services/PersonService'
-import CookieHelper from '@/libs/server/utils/CookieHelper'
 import apiHandler from '@/libs/server/middlewares/apiHandler'
 import OpenGraphService from '@/libs/server/services/OpenGraphService'
 

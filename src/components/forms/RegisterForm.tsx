@@ -1,14 +1,14 @@
 import { Grid, Box, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Typography, Alert } from '@mui/material';
 import React from 'react'
-import ExtInput from '../../controls/ExtInput';
 import { useFormik } from "formik";
 import * as yup from "yup";
-import ExtButton from '../../controls/ExtButton';
 import { register } from '@/libs/client/api/account.api';
 import ExtLink from '@/controls/ExtLink';
 import Paths from '@/libs/client/utils/Paths';
 import { useNavigate } from 'react-router';
 import useToast from '@/components/toast/useToast';
+import LoadingButton from '@mui/lab/LoadingButton';
+import ExtInput from '@/controls/ExtInput';
 
 const validationSchema = yup.object({
     username: yup.string().matches(/^[a-zA-Z]+/, '账号必须以字母开头').matches(/^[a-zA-Z]\w{3,10}$/, "账号为3~10位的字符（数字、字母、下划线）").required('请输入账号'),
@@ -19,7 +19,7 @@ const validationSchema = yup.object({
 const RegisterForm = () => {
     const [loading, setLoading] = React.useState(false)
     const [open, setOpen] = React.useState(false)
-    const {showError} = useToast()
+    const { showError } = useToast()
     const nav = useNavigate()
     const formik = useFormik({
         initialValues: {
@@ -43,7 +43,7 @@ const RegisterForm = () => {
     })
     const handleClose = () => {
         setOpen(false)
-        nav(Paths.ACCOUNT_LOGIN,{replace: true})
+        nav(Paths.ACCOUNT_LOGIN, { replace: true })
     }
 
     return (
@@ -57,7 +57,7 @@ const RegisterForm = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <Box marginTop={10}>
-                            <ExtButton isLoading={loading} type="submit" sx={{ backgroundColor: "#232255", height: "50px", borderRadius: "25px" }} startIcon={null} fullWidth size="large" variant="contained">注 册</ExtButton>
+                            <LoadingButton loading={loading} type="submit" sx={{ backgroundColor: "#232255", height: "50px", borderRadius: "25px" }} fullWidth size="large" variant="contained">注 册</LoadingButton>
                         </Box>
                     </Grid>
                     <Grid item xs={12}>

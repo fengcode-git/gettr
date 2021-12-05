@@ -6,6 +6,8 @@ interface IStoreState {
     /** 已登录用户名称 */
     nickname: string,
     /** 用户ID */
-    id: string
+    id: string,
+    /** 授权token */
+    token: string
 }
 export default IStoreState

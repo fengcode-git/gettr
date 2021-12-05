@@ -5,6 +5,7 @@ import fs from "fs"
 import path from 'path'
 import appRoot from 'app-root-path'
 import StringHelper from '@/libs/common/utils/StringHelper';
+import authMiddleware from '@/libs/server/middlewares/authMiddleware'
 
 // 必须禁用bodyParser才能上传成功
 // https://nextjs.org/docs/api-routes/api-middlewares#custom-config
@@ -14,7 +15,7 @@ export const config = {
     }
 }
 
-export default apiHandler().post(async (req, res) => {
+export default apiHandler().use(authMiddleware).post(async (req, res) => {
     const form = new formidable.IncomingForm()
     form.parse(req, ((err, fields, files) => {
         if (err) {

@@ -9,7 +9,7 @@ class JwtHelper {
         let token = jwt.sign({
             id: id,
             name: accountName
-        }, APP_KEY, { expiresIn: 60 * 60 })
+        }, APP_KEY, { expiresIn: 60 * 60 * 24 * 7 })
         return token
     }
 

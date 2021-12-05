@@ -1,5 +1,6 @@
 interface IUser{
     id: string,
-    nickname: string
+    nickname: string,
+    token: string
 }
 export default IUser

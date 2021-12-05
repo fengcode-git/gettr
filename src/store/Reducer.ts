@@ -4,7 +4,7 @@ import produce from 'immer'
 
 export type StoreAction =
     | { type: 'setVisit', visit: boolean }
-    | { type: 'login', id: string, nickname: string }
+    | { type: 'login', id: string, nickname: string, token: string }
     | { type: 'logout' }
     | { type: 'loadStorage' }
 
@@ -18,6 +18,7 @@ export const StoreReducer = (state: IStoreState, action: StoreAction) => {
                 draft.visit = true
                 draft.nickname = action.nickname
                 draft.id = action.id
+                draft.token = action.token
             })
         case "setVisit":
             return produce(state, draft => {
@@ -29,8 +30,10 @@ export const StoreReducer = (state: IStoreState, action: StoreAction) => {
             return produce(state, draft => {
                 draft.login = false
                 draft.nickname = ''
-                draft.visit = false
+                draft.visit = true
                 draft.id = ''
+                draft.token = ''
+                StorageHelper.clear()
             })
         case "loadStorage":
             return produce(state, draft => {
@@ -40,6 +43,7 @@ export const StoreReducer = (state: IStoreState, action: StoreAction) => {
                     draft.nickname = v.nickname
                     draft.visit = v.visit
                     draft.id = v.id
+                    draft.token = v.token
                 }
             })
         default:

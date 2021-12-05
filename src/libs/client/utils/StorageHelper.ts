@@ -4,10 +4,10 @@ const KEYNAME = 'state'
 
 class StorageHelper {
     static set(data: IStoreState) {
-        sessionStorage.setItem(KEYNAME, JSON.stringify(data));
+        localStorage.setItem(KEYNAME, JSON.stringify(data));
     }
     static get(): IStoreState | null {
-        let json = sessionStorage.getItem(KEYNAME)
+        let json = localStorage.getItem(KEYNAME)
         if (json) {
             return JSON.parse(json) as IStoreState
         } else {
@@ -15,7 +15,7 @@ class StorageHelper {
         }
     }
     static clear() {
-        sessionStorage.clear()
+        localStorage.clear()
     }
 }
 export default StorageHelper

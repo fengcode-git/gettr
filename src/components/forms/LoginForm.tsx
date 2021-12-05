@@ -7,11 +7,11 @@ import Paths from '@/libs/client/utils/Paths'
 import { login } from '@/libs/client/api/account.api'
 import ExtLink from '@/controls/ExtLink'
 import ExtInput from '@/controls/ExtInput'
-import ExtButton from '@/controls/ExtButton'
 import { useStore } from '@/store/StoreContext'
-import { Typography } from '@mui/material'
+import { Typography, } from '@mui/material'
 import { useNavigate } from 'react-router';
 import useToast from '@/components/toast/useToast';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const validationSchema = yup.object({
     username: yup.string().matches(/^[a-zA-Z]+/, '账号必须以字母开头').matches(/^[a-zA-Z]\w{2,9}$/, "账号为3~10位的字符（数字、字母、下划线）").required('请输入账号'),
@@ -21,7 +21,7 @@ const validationSchema = yup.object({
 const LoginForm = () => {
     const [loading, setLoading] = React.useState(false)
     const { dispatch } = useStore()
-    const {showError} = useToast()
+    const { showError } = useToast()
     const nav = useNavigate()
     const formik = useFormik({
         initialValues: {
@@ -33,8 +33,8 @@ const LoginForm = () => {
             try {
                 setLoading(true)
                 let result = await login(values.username, values.password)
-                dispatch({ type: 'login', id: result.id, nickname: result.nickname })
-                nav('/',{replace: true})
+                dispatch({ type: 'login', id: result.id, nickname: result.nickname, token: result.token })
+                nav('/', { replace: true })
             } catch (error: any) {
                 showError(error.message)
             } finally {
@@ -52,7 +52,7 @@ const LoginForm = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Box marginTop={10}>
-                        <ExtButton isLoading={loading} type="submit" color="primary" sx={{ backgroundColor: "#232255", height: "50px", borderRadius: "25px" }} startIcon={null} fullWidth size="large" variant="contained">登 录</ExtButton>
+                        <LoadingButton loading={loading} type="submit" color="primary" sx={{ backgroundColor: "#232255", height: "50px", borderRadius: "25px" }} fullWidth size="large" variant="contained">登 录</LoadingButton>
                     </Box>
                 </Grid>
                 <Grid item xs={12} paddingTop={3} container justifyContent="center" alignItems="center" >
