@@ -14,6 +14,8 @@ export default class PostView {
     account_name: string = ''
     nickname: string = ''
     avatar: string = ''
+    open_graph: string = ''
+    video: string = ''
     ref_id: string = ''
     ref_person_id: string = ''
     ref_images: string = ''
@@ -26,4 +28,6 @@ export default class PostView {
     ref_account_name: string = ''
     ref_avatar: string = ''
     ref_nickname: string = ''
+    ref_open_graph: string = ''
+    ref_video: string = ''
 }

@@ -3,6 +3,7 @@ import { ResolvedPos, Node } from 'prosemirror-model'
 import { EditorState, NodeSelection, Selection, TextSelection } from 'prosemirror-state'
 import { Transform } from 'prosemirror-transform'
 import { EditorView } from 'prosemirror-view'
+import { DOMSerializer } from 'prosemirror-model'
 
 interface ILinkInfo {
     text: string,
@@ -19,6 +20,13 @@ interface INodeInfo {
 }
 
 class EditorHelper {
+    static toHtml(state: EditorState) {
+        let div = document.createElement('div')
+        let serializer = DOMSerializer.fromSchema(state.schema)
+        let fragment = serializer.serializeFragment(state.doc.content)
+        div.appendChild(fragment)
+        return div.innerHTML
+    }
     /** 获取上一个兄弟节点，没有则返回null */
     static getBeforeSiblingNode($pos: ResolvedPos): INodeInfo | null {
         // https://discuss.prosemirror.net/t/how-to-get-the-absolute-position-of-a-sibling-node/544

@@ -1,18 +1,21 @@
+import Post from "@/libs/common/entity/Post";
 import PostView from "@/libs/common/entity/PostView";
 import PostType from "@/libs/common/enums/PostType";
+import IPostInfo from "@/libs/common/interfaces/IPostInfo";
 import UnitOfWork from "@/libs/server/services/UnitOfWork";
 
 
 export default class PostService {
-    static async add(content: string, personId: string, pType: PostType = PostType.post, refId: string = '', images: string = ''): Promise<PostView> {
+    static async add(personId: string, info: IPostInfo): Promise<PostView> {
         let work = await UnitOfWork.create();
-        let post = await work.post.insert(content, personId, pType, refId, images)
+        let post = Post.create(info, personId)
+        await work.post.insert(post)
         let postView = await work.post.getViewById(post.id)
         work.db.close()
         return postView!
     }
 
-    static async getPosts(currentPage: number, personId: string='') {
+    static async getPosts(currentPage: number, personId: string = '') {
         let work = await UnitOfWork.create()
         let result = null;
         if (personId) {

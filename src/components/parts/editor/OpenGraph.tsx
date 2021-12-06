@@ -1,5 +1,4 @@
 import { EditorContext } from '@/components/parts/editor/EditorContext'
-import IOpenGraph from '@/libs/common/interfaces/IOpenGraph'
 import React from 'react'
 import { CircularProgress, Card, CardContent, CardActionArea, CardMedia, Typography } from '@mui/material'
 import getOpenGraphInfo from '@/libs/client/api/opengraph'
@@ -10,10 +9,9 @@ interface Props {
 }
 
 const OpenGraph = (props: Props) => {
-    let { links } = React.useContext(EditorContext)
+    let { links, openGraph, setOpenGraph } = React.useContext(EditorContext)
     const [url, setUrl] = React.useState<string>('')
     const [loading, setLoading] = React.useState<boolean>(false)
-    const [data, setData] = React.useState<IOpenGraph | null>(null)
 
     React.useEffect(() => {
         if (links.length === 0) {
@@ -25,14 +23,14 @@ const OpenGraph = (props: Props) => {
 
     React.useEffect(() => {
         if (url == '') {
-            setData(null)
+            setOpenGraph(null)
         } else {
             setLoading(true)
             getOpenGraphInfo(url).then(value => {
-                setData(value)
+                setOpenGraph(value)
             }).catch(err => {
                 console.error(err)
-                setData(null)
+                setOpenGraph(null)
             }).finally(() => {
                 setLoading(false)
             })
@@ -42,16 +40,16 @@ const OpenGraph = (props: Props) => {
 
     if (loading) {
         return <CircularProgress />
-    } else if (data == null) {
+    } else if (openGraph == null) {
         return null
     } else {
         return (
             <Card elevation={0}>
                 <CardActionArea>
-                    <CardMedia image={data.image} style={{height:'200px'}}></CardMedia>
+                    <CardMedia image={openGraph.image} style={{ height: '200px' }}></CardMedia>
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">{data.title}</Typography>
-                        <Typography variant="body2" color="text.secondary">{data.description}</Typography>
+                        <Typography gutterBottom variant="h5" component="div">{openGraph.title}</Typography>
+                        <Typography variant="body2" color="text.secondary">{openGraph.description}</Typography>
                     </CardContent>
                 </CardActionArea>
             </Card>

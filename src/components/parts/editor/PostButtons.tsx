@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Box, Button, Grid, IconButton, Input, Popover } from '@mui/material'
+import { Backdrop, Box, Button, CircularProgress, Popover } from '@mui/material'
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto'
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 import { styled } from '@mui/system'
@@ -8,6 +8,10 @@ import { BaseEmoji, Picker } from 'emoji-mart'
 import { EditorContext } from '@/components/parts/editor/EditorContext'
 import updateFile from '@/libs/client/api/file.api'
 import useToast from '@/components/toast/useToast'
+import EditorHelper from '@/components/parts/editor/EditorHelper'
+import IPostInfo from '@/libs/common/interfaces/IPostInfo'
+import PostType from '@/libs/common/enums/PostType'
+import { insertPost } from '@/libs/client/api/post.api'
 
 const StyledPublicButton = styled(Button)`
     background-color: #232255;
@@ -29,7 +33,8 @@ const PostButtons = () => {
     const [disable, setDisable] = React.useState(false)
     const context = useContext(EditorContext)
     const [textLength, setTextLength] = React.useState(0)
-    const { showError } = useToast()
+    const { showError, showSuccess } = useToast()
+    const [working, setWorking] = React.useState(false)
     const maxLength = 777
     const addEmoji = (emoji: BaseEmoji) => {
         if (emoji.native) {
@@ -63,12 +68,42 @@ const PostButtons = () => {
             setDisable(false)
         }
     }, [context.images])
+
     React.useEffect(() => {
         let doc = context.value.doc
         let text = doc.textBetween(0, doc.nodeSize - 2, '\n')
         let length = text.length
         setTextLength(length)
     }, [context.value])
+
+
+    const handlePublic = () => {
+        let html = EditorHelper.toHtml(context.value)
+        let images = JSON.stringify(context.images)
+        let open_graph = context.openGraph ? JSON.stringify(context.openGraph) : ''
+        let post: IPostInfo = {
+            content: html,
+            images: images,
+            open_graph: open_graph,
+            video: '',
+            ref_id: '',
+            type: PostType.post
+        }
+        setWorking(true)
+        insertPost(post).then(result => {
+            if (result.success) {
+                context.reset()
+                showSuccess('发布成功')
+            } else {
+                showError(result.message)
+            }
+        }).catch(err => {
+            showError(err.message)
+        }).finally(() => {
+            setWorking(false)
+        })
+    }
+
     return (
         <Box marginTop={2} display="flex" alignItems="center">
             <label htmlFor="icon-button-file">
@@ -79,8 +114,11 @@ const PostButtons = () => {
             <Popover open={open} anchorEl={emojiBtnRef} onClose={handleClose}>
                 <Picker onSelect={addEmoji} />
             </Popover>
-            <div style={{ marginLeft: 'auto',marginRight: '10px' }}>{textLength} / {maxLength} </div>
-            <StyledPublicButton variant="contained" disableElevation={true} disabled={textLength >= maxLength}>发帖子</StyledPublicButton>
+            <div style={{ marginLeft: 'auto', marginRight: '10px' }}>{textLength} / {maxLength} </div>
+            <StyledPublicButton variant="contained" disableElevation={true} disabled={textLength >= maxLength || textLength === 0} onClick={handlePublic}>发帖子</StyledPublicButton>
+            <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={working}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </Box>
     )
 }

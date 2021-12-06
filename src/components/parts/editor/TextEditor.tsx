@@ -37,14 +37,6 @@ const TextEditor = () => {
     }
 
     React.useEffect(() => {
-        if (context.isWorking) {
-            getAllPerson().then(result => {
-                console.log(result)
-            })
-        }
-    }, [context.isWorking])
-
-    React.useEffect(() => {
         let tr = context.value.tr.insertText(context.emoji)
         ref.current?.view?.dispatch(tr)
     }, [context.emoji])

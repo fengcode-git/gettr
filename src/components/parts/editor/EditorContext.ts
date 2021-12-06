@@ -1,4 +1,5 @@
 import DocSchema from "@/components/parts/editor/DocSchema";
+import IOpenGraph from "@/libs/common/interfaces/IOpenGraph";
 import { EditorState } from "prosemirror-state";
 import React, { useReducer, createContext } from "react"
 import { useProseMirror } from "use-prosemirror";
@@ -16,6 +17,9 @@ export interface IEditorContext {
     setImages: React.Dispatch<React.SetStateAction<Array<string>>>,
     links: Array<string>,
     setLinks: React.Dispatch<React.SetStateAction<Array<string>>>,
+    openGraph: IOpenGraph | null
+    setOpenGraph: React.Dispatch<React.SetStateAction<IOpenGraph | null>>
+    reset: () => void
 }
 
 export const EditorContext = React.createContext<IEditorContext>({} as IEditorContext)
