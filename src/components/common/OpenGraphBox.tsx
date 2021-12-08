@@ -1,6 +1,5 @@
 import IOpenGraph from '@/libs/common/interfaces/IOpenGraph'
 import React from 'react'
-import { CircularProgress, Card, CardContent, CardActionArea, CardMedia, Typography } from '@mui/material'
 import { styled } from '@mui/system'
 
 interface Props {
@@ -54,41 +53,30 @@ const StyledDescribe = styled('p')`
     white-space: normal !important;
     text-overflow: ellipsis;
 `
-
-const ImageBox = ({ data }: { data: IOpenGraph }) => {
-    const handleClick = ()=>{
+const OpenGraphBox = (props: Props) => {
+    const { data } = props
+    if (!data) {
+        return null
+    }
+    const handleClick = () => {
         window.open(data.url)
     }
     if (!data.image) {
         return null
     } else {
         return (
-            <StyledImageBox>
-                <img src={data.image} alt="image" style={{ width: "100%" }} onClick={handleClick}></img>
-                <StyledTextBox>
-                    <StyledTitle>{data.title}</StyledTitle>
-                    <StyledDescribe>{data.description}</StyledDescribe>
-                </StyledTextBox>
-            </StyledImageBox>
+            <StyledWrapper>
+                <StyledImageBox>
+                    <img src={data.image} alt="image" style={{ width: "100%" }} onClick={handleClick}></img>
+                    <StyledTextBox>
+                        <StyledTitle>{data.title}</StyledTitle>
+                        <StyledDescribe>{data.description}</StyledDescribe>
+                    </StyledTextBox>
+                </StyledImageBox>
+            </StyledWrapper>
+
         )
     }
-}
-
-
-
-
-const OpenGraphBox = (props: Props) => {
-    if (!props.data) {
-        return null
-    }
-    return (
-        <StyledWrapper>
-            <ImageBox data={props.data}></ImageBox>
-            <div>
-
-            </div>
-        </StyledWrapper>
-    )
 }
 
 export default OpenGraphBox

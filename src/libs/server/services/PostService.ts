@@ -39,4 +39,11 @@ export default class PostService {
         await work.post.delete(id)
         work.db.close()
     }
+
+    static async getNews(){
+        let work = await UnitOfWork.create()
+        let result = work.post.getNews()
+        work.db.close()
+        return result
+    }
 }

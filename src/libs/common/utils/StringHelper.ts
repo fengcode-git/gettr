@@ -24,10 +24,6 @@ export default class StringHelper {
     static parseDateWithString(date: string): Date {
         return dayjs(date, LONG_TIME_FORMAT).toDate()
     }
-    static getShortDate(dt: Date) {
-        console.log(dt)
-        return `${dt.getMonth()}月-${dt.getDate()}日`
-    }
     static getRelativeTimeMessage(dt: Date) {
         dayjs.extend(relativeTime)
         return dayjs(dt).fromNow()

@@ -75,4 +75,8 @@ export default class PostRepository extends BaseRepository {
         let data = await this.conn.query<PostView>(sql, [StatusType.visible, PostType.comment, postId, pageSize, skipNum])
         return new PagingResult(currentPage, pageSize, count, data)
     }
+    async getNews(): Promise<string[]> {
+        let sql = "select open_graph from post where open_graph is not null and post.open_graph!='' order by create_time desc limit 5 offset 0;"
+        return await this.conn.query<string>(sql)
+    }
 }
