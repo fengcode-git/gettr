@@ -1,3 +1,4 @@
+import StringHelper from "@/libs/common/utils/StringHelper"
 import PostType from "../enums/PostType"
 import StatusType from "../enums/StatusType"
 
@@ -9,7 +10,7 @@ export default class PostView {
     type: PostType = PostType.post
     forward_num: number = 0
     content: string = ''
-    create_time: Date = new Date()
+    create_time: string = StringHelper.getNowString()
     images: string = ''
     account_name: string = ''
     nickname: string = ''
@@ -19,7 +20,7 @@ export default class PostView {
     ref_id: string = ''
     ref_person_id: string = ''
     ref_images: string = ''
-    ref_create_time: Date = new Date()
+    ref_create_time: string = StringHelper.getNowString()
     ref_content: string = ''
     ref_forward_num: number = 0
     ref_like_num: number = 0

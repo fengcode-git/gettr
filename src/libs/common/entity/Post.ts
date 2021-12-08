@@ -13,7 +13,7 @@ class Post {
     forward_num: number = 0
     content: string = ''
     type: PostType = PostType.post
-    create_time: Date = new Date()
+    create_time: string = StringHelper.getNowString()
     images: string = ''
     open_graph: string = ''
     video: string = ''

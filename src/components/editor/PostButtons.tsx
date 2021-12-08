@@ -5,10 +5,10 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 import { styled } from '@mui/system'
 import 'emoji-mart/css/emoji-mart.css'
 import { BaseEmoji, Picker } from 'emoji-mart'
-import { EditorContext } from '@/components/parts/editor/EditorContext'
+import { EditorContext } from '@/components/editor/EditorContext'
 import updateFile from '@/libs/client/api/file.api'
 import useToast from '@/components/toast/useToast'
-import EditorHelper from '@/components/parts/editor/EditorHelper'
+import EditorHelper from '@/components/editor/EditorHelper'
 import IPostInfo from '@/libs/common/interfaces/IPostInfo'
 import PostType from '@/libs/common/enums/PostType'
 import { insertPost } from '@/libs/client/api/post.api'
@@ -53,9 +53,7 @@ const PostButtons = () => {
         if (target.files && target.files.length > 0) {
             let file = target.files[0]
             updateFile(file).then(result => {
-                let imgs = context.images.slice()
-                imgs.push(result)
-                context.setImages(imgs)
+                context.setImages([...context.images, result])
             }).catch(err => {
                 showError(err.message)
             })
@@ -75,7 +73,6 @@ const PostButtons = () => {
         let length = text.length
         setTextLength(length)
     }, [context.value])
-
 
     const handlePublic = () => {
         let html = EditorHelper.toHtml(context.value)

@@ -1,4 +1,5 @@
 import { JsonResult } from "@/libs/common/interfaces/IJsonResult";
+import PersonService from "@/libs/server/services/PersonService";
 import JwtHelper from "@/libs/server/utils/JwtHelper";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -20,8 +21,13 @@ const authMiddleware = async (req: NextApiRequest, res: NextApiResponse, next: (
         } else {
             let user = await JwtHelper.verify(token)
             if (user) {
-                req.user = user
-                next()
+                let dbUser = await PersonService.getById(user.id)
+                if (dbUser) {
+                    req.user = user
+                    next()
+                } else {
+                    res.status(401).json(JsonResult.create(false, '该用户不存在，请重新登录', {}))
+                }
             } else {
                 res.status(401).json(JsonResult.create(false, msg401, {}))
             }

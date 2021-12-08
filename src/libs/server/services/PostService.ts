@@ -27,6 +27,13 @@ export default class PostService {
         return result
     }
 
+    static async getAllPostViews(): Promise<PostView[]> {
+        let work = await UnitOfWork.create()
+        let result = await work.postView.getAll()
+        work.db.close()
+        return result
+    }
+
     static async delete(id: string) {
         let work = await UnitOfWork.create()
         await work.post.delete(id)

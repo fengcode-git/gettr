@@ -1,9 +1,8 @@
 import React, { useContext } from 'react'
 import { Handle, ProseMirror } from 'use-prosemirror'
-import { EditorContext } from '@/components/parts/editor/EditorContext'
+import { EditorContext } from '@/components/editor/EditorContext'
 import { EditorState } from 'prosemirror-state'
 import { styled } from '@mui/system'
-import { getAllPerson } from '@/libs/client/api/person.api'
 
 const StyledProseMirror = styled(ProseMirror)`
     background-color: #F7F8F9;

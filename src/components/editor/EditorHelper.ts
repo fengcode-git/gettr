@@ -1,4 +1,4 @@
-import DocSchema, { docSchema } from '@/components/parts/editor/DocSchema'
+import DocSchema, { docSchema } from '@/components/editor/DocSchema'
 import { ResolvedPos, Node } from 'prosemirror-model'
 import { EditorState, NodeSelection, Selection, TextSelection } from 'prosemirror-state'
 import { Transform } from 'prosemirror-transform'

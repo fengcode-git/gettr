@@ -21,7 +21,6 @@ export default class PostRepository extends BaseRepository {
         let sql = `insert into post(id, ref_id, person_id, status, like_num, forward_num, content, type, create_time, open_graph, video, images) 
                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?);`
         let id = StringHelper.generateUUID()
-        let now = new Date()
         let args = [post.id, post.ref_id, post.person_id, StatusType.visible, 0, 0, post.content, post.type, post.create_time, post.open_graph, post.video, post.images]
         await this.conn.execute(sql, args)
         return (await this.getById(id))!

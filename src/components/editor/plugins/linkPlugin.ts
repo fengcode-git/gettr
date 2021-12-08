@@ -1,7 +1,7 @@
 import { EditorView } from 'prosemirror-view'
 import { EditorState, NodeSelection, Plugin, TextSelection, Transaction } from 'prosemirror-state'
 import { Fragment, Slice } from 'prosemirror-model'
-import { docSchema } from '@/components/parts/editor/DocSchema'
+import { docSchema } from '@/components/editor/DocSchema'
 
 const REG = /((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)$/i
 const ExactReg = /^((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)$/i

@@ -1,8 +1,7 @@
-import DocSchema from "@/components/parts/editor/DocSchema";
+import DocSchema from "@/components/editor/DocSchema";
 import IOpenGraph from "@/libs/common/interfaces/IOpenGraph";
 import { EditorState } from "prosemirror-state";
-import React, { useReducer, createContext } from "react"
-import { useProseMirror } from "use-prosemirror";
+import React from "react"
 
 export interface IEditorContext {
     value: EditorState<DocSchema>,

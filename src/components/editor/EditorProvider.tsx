@@ -1,8 +1,8 @@
-import DocSchema, { docSchema } from "@/components/parts/editor/DocSchema";
-import { EditorContext } from "@/components/parts/editor/EditorContext";
-import linkPlugin, { getLinksFromState } from "@/components/parts/editor/plugins/linkPlugin";
-import mentionPlugin from "@/components/parts/editor/plugins/mentionPlugin";
-import placeholderPlugin from "@/components/parts/editor/plugins/placeholderPlugin";
+import DocSchema, { docSchema } from "@/components/editor/DocSchema";
+import { EditorContext } from "@/components/editor/EditorContext";
+import linkPlugin, { getLinksFromState } from "@/components/editor/plugins/linkPlugin";
+import mentionPlugin from "@/components/editor/plugins/mentionPlugin";
+import placeholderPlugin from "@/components/editor/plugins/placeholderPlugin";
 import IOpenGraph from "@/libs/common/interfaces/IOpenGraph";
 import { baseKeymap } from "prosemirror-commands";
 import { keymap } from "prosemirror-keymap";

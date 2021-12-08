@@ -1,4 +1,5 @@
 import RoleType from "@/libs/common/enums/RoleType"
+import StringHelper from "@/libs/common/utils/StringHelper"
 
 class Person {
     id: string = ''
@@ -6,7 +7,7 @@ class Person {
     nickname:string = ''
     password: string = ''
     avatar: string = ''
-    create_time: Date = new Date()
+    create_time: string = StringHelper.getNowString()
     role: RoleType = RoleType.user
 }
 export default Person

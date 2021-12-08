@@ -24,6 +24,13 @@ export default class PersonService {
         }
     }
 
+    static async getById(id: string): Promise<Person | null> {
+        let work = await UnitOfWork.create()
+        let p = await work.person.getById(id)
+        work.db.close()
+        return p
+    }
+
     /** 登录成功后，返回签名后的token */
     static async login(name: string, password: string): Promise<{ id: string; token: string; nickname: string; }> {
         name = name.trim()

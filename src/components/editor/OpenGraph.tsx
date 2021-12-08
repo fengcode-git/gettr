@@ -1,14 +1,10 @@
-import { EditorContext } from '@/components/parts/editor/EditorContext'
+import { EditorContext } from '@/components/editor/EditorContext'
 import React from 'react'
-import { CircularProgress, Card, CardContent, CardActionArea, CardMedia, Typography } from '@mui/material'
+import { CircularProgress } from '@mui/material'
 import getOpenGraphInfo from '@/libs/client/api/opengraph'
+import OpenGraphBox from '@/components/common/OpenGraphBox'
 
-
-interface Props {
-
-}
-
-const OpenGraph = (props: Props) => {
+const OpenGraph = () => {
     let { links, openGraph, setOpenGraph } = React.useContext(EditorContext)
     const [url, setUrl] = React.useState<string>('')
     const [loading, setLoading] = React.useState<boolean>(false)
@@ -44,15 +40,7 @@ const OpenGraph = (props: Props) => {
         return null
     } else {
         return (
-            <Card elevation={0}>
-                <CardActionArea>
-                    <CardMedia image={openGraph.image} style={{ height: '200px' }}></CardMedia>
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">{openGraph.title}</Typography>
-                        <Typography variant="body2" color="text.secondary">{openGraph.description}</Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
+            <OpenGraphBox data={openGraph}></OpenGraphBox>
         )
     }
 }
