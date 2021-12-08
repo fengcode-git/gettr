@@ -29,13 +29,14 @@ export default class PostRepository extends BaseRepository {
         let sql = 'update post set status=? where id=? limit 1;'
         await this.conn.execute(sql, [StatusType.hide, id])
     }
-    async getPosts(currentPage: number) {
+    async getPosts(currentPage: number): Promise<PagingResult<PostView>> {
         let pageSize = DEFAULT_PAGE_SIZE
         let skipNum = PagingHelper.getSkipNum(currentPage, pageSize)
         let sql = 'select count(*) from post_view where status=? and type=?'
         let count = await this.conn.scalar(sql, [StatusType.visible, PostType.post])
         sql = 'select * from post_view where status=? and type=? order by create_time desc limit ? offset ?;';
-        let data = await this.conn.query<PostView>(sql, [StatusType.visible, PostType.post, pageSize, skipNum])
+        let args = [StatusType.visible, PostType.post, pageSize, skipNum]
+        let data = await this.conn.query<PostView>(sql,args)        
         return new PagingResult(currentPage, pageSize, count, data)
     }
     async getPostWithFollower(currentPage: number, personId: string) {

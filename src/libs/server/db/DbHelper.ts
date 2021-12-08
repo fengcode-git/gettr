@@ -1,6 +1,8 @@
 import ConnectFactory from '@/libs/server/db/ConnectFactory';
 import sqlite3 from 'sqlite3'
 
+// API文档： https://github.com/mapbox/node-sqlite3/wiki
+
 class DbHelper {
     private _db: sqlite3.Database;
     private constructor(db: sqlite3.Database) {
@@ -56,7 +58,7 @@ class DbHelper {
     /** 查询数据 */
     async query<T>(sql: string, args: Array<any> = []): Promise<Array<T>> {
         return new Promise((resolve, reject) => {
-            this._db.all(sql, function (err, rows) {
+            this._db.all(sql, args, function (err, rows) {
                 if (err) {
                     reject(err)
                 } else {

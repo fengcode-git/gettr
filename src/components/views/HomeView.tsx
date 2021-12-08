@@ -1,4 +1,3 @@
-import { BodyContent } from '@/components/layout/BodyContent';
 import MainLayout from '@/components/layout/MainLayout';
 import PostEditor from '@/components/editor/PostEditor';
 import React from 'react'
