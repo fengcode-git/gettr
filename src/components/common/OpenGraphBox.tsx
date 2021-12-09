@@ -1,6 +1,7 @@
 import IOpenGraph from '@/libs/common/interfaces/IOpenGraph'
 import React from 'react'
 import { styled } from '@mui/system'
+import { Box } from '@mui/material'
 
 interface Props {
     data: IOpenGraph | null | undefined
@@ -30,14 +31,17 @@ const StyledTextBox = styled('div')`
     overflow: hidden;
     font-size: 16px;
     letter-spacing: 0.01em;
+    max-width: 100%;
 `
 const StyledTitle = styled('p')`
     overflow: hidden;
     font-size: 15px !important;
     text-align: left;
     line-height: 20px !important;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     text-overflow: ellipsis;
+    word-wrap: break-word;
+    min-width: 0;
 `
 
 const StyledDescribe = styled('p')`

@@ -9,6 +9,7 @@ import { keymap } from "prosemirror-keymap";
 import { EditorState, Plugin } from "prosemirror-state";
 import React, { useState } from "react"
 import { useProseMirror } from "use-prosemirror"
+import { history, redo, undo } from "prosemirror-history"
 
 interface Props {
     children: React.ReactNode
@@ -23,7 +24,9 @@ const EditorProvider = (props: Props) => {
     const [openGraph, setOpenGraph] = React.useState<IOpenGraph | null>(null)
 
     let plugins: Plugin[] = [
+        history(),
         linkPlugin(),
+        keymap({ "Mod-z": undo, "Mod-y": redo }),
         keymap(baseKeymap),
         mentionPlugin(setWorking),
         placeholderPlugin('有什么新鲜事吗？'),
@@ -31,7 +34,7 @@ const EditorProvider = (props: Props) => {
     const [value, setValue] = useProseMirror({ schema: docSchema, plugins })
 
     const reset = () => {
-        let newState = EditorState.create({schema: docSchema,plugins})
+        let newState = EditorState.create({ schema: docSchema, plugins })
         setValue(newState)
         setLinks([])
         setImages([])
