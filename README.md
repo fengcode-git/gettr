@@ -37,5 +37,5 @@
 
 ## 功能演示
 
-![https://i.imgur.com/rBgwYGN.gif](https://i.imgur.com/rBgwYGN.gif)
+![演示图片](https://github.com/fengcode-git/disk/blob/main/app.gif?raw=true)
 
